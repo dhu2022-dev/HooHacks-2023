@@ -14,9 +14,7 @@ for i in deposits['results']:  # excluding feb of the first year because it's no
     #print(i)
     try:  # this data is fuckign aids to work with        
         year_month = i['transaction_date'].split('-')[:-1]
-        wacky_date = int(year_month[0]) * 100 + int(year_month[1])
-        if wacky_date == 5:
-            print('what the hell')
+        wacky_date = int(year_month[0]) * 12 + int(year_month[1])  # this gon be the month number
         if wacky_date not in months:  # if the month changed
             months[wacky_date] = float(i['amount'])
             prev_date = i['transaction_date'][:-3] 
@@ -31,15 +29,7 @@ for i in months.keys():
     months_list.append([i, months[i]])
 months_list.sort()
 
-index_deposits = [[i, float(months_list[i][1])] for i in range(len(months_list))]
-
 # add numbers to csv
 f = open('month_deposit.csv', 'w', newline='')
 writer = csv.writer(f)
-writer.writerows(index_deposits)
-
-'''
-for i in range(len(months)):
-    writer.writerow([i, months[i]])
-f.close()
-'''
+writer.writerows(months_list)
