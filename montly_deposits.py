@@ -32,4 +32,5 @@ months_list.sort()
 # add numbers to csv
 f = open('month_deposit.csv', 'w', newline='')
 writer = csv.writer(f)
+writer.writerow(['month', 'deposits'])
 writer.writerows(months_list)
